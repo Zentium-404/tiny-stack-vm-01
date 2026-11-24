@@ -21,7 +21,7 @@ function run(p: Uint8Array, inp: Uint8Array): { out: number[]; code: number } {
     else if (op === 0x05 || op === 0x06) { pops = 2; pushes = op === 0x06 ? 3 : 2; }
     else if (op === 0x07) { pops = 3; pushes = 3; }
     else if (op === 0x17 || op === 0x1b) { pops = 1; pushes = 1; }
-    else if (op >= 0x10 && op <= 0x22 && op !== 0x17 && op !== 0x1b) { pops = 2; pushes = 1; }
+    else if (op >= 0x10 && op <= 0x22 && op !== 0x17 && op !== 0x1b && op !== 0x1f) { pops = 2; pushes = 1; }
     else if (op === 0x30) imm = 2;
     else if (op === 0x31 || op === 0x32) { imm = 2; pops = 1; }
     else if (op === 0x33) imm = 2;
@@ -48,7 +48,7 @@ function run(p: Uint8Array, inp: Uint8Array): { out: number[]; code: number } {
     if (op === 0x07) { const a = D[sp - 3]; D[sp - 3] = D[sp - 2]; D[sp - 2] = D[sp - 1]; D[sp - 1] = a; pc = next; continue; }
     if (op === 0x17) { D[sp - 1] = -D[sp - 1] | 0; pc = next; continue; }
     if (op === 0x1b) { D[sp - 1] = ~D[sp - 1]; pc = next; continue; }
-    if (op >= 0x10 && op <= 0x22) {
+    if (op >= 0x10 && op <= 0x22 && op !== 0x1f) {
       const b = D[sp - 1], a = D[sp - 2];
       let r: number;
       if (op === 0x10) r = (a + b) | 0;
