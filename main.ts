@@ -93,6 +93,7 @@ function run(p: Uint8Array, inp: Uint8Array): { out: number[]; code: number } {
   }
 }
 
+// driver: one pass over /input, answers to /output (format per RULES.txt)
 const I = process.env.MAKEFUN_INPUT_DIR ?? '/input';
 const O = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 for (const id of readdirSync(I).sort()) {
